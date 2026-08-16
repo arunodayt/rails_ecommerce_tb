@@ -31,3 +31,6 @@
 # Ignore key files for decrypting credentials and more.
 /config/*.key
 
+# Ignore macOS system files in all directories.
+.DS_Store
+
