@@ -1,5 +1,6 @@
 class Product < ApplicationRecord
   has_many :order_items, dependent: :restrict_with_error
+  has_one :inventory, dependent: :destroy
 
   before_validation :normalize_sku
 

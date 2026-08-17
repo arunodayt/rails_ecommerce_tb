@@ -20,6 +20,24 @@ if Rails.env.development?
   puts "Seeded user '#{user.username}' (role: #{user.role}, password: '#{password}')"
 end
 
+# Currencies are reference data required in every environment. Rates come from
+# the (mocked) provider.
+CURRENCY_NAMES = {
+  "USD" => "US Dollar",
+  "EUR" => "Euro",
+  "GBP" => "British Pound",
+  "INR" => "Indian Rupee",
+  "JPY" => "Japanese Yen"
+}.freeze
+
+ExchangeRateProvider::MOCK_USD_RATES.each do |code, rate|
+  currency = Currency.find_by_code(code) || Currency.new(code: code)
+  currency.assign_attributes(name: CURRENCY_NAMES.fetch(code, code), usd_rate: rate, rate_updated_at: Time.current)
+  currency.save!
+end
+
+puts "Seeded #{Currency.count} currencies"
+
 # In development, seed a sample catalog and customer list so the API can be
 # exercised with realistic data.
 if Rails.env.development?
@@ -41,6 +59,14 @@ if Rails.env.development?
   end
 
   puts "Seeded #{products.size} products (#{Product.count} total in catalog)"
+
+  # Stock every product once so the seeded orders below can deduct inventory.
+  # Only sets quantity on creation so manual dev adjustments survive reruns.
+  Product.find_each do |product|
+    Inventory.find_or_create_by!(product: product) { |inventory| inventory.quantity = 100 }
+  end
+
+  puts "Seeded inventory for #{Inventory.count} products"
 
   customers = [
     { name: "Alice Johnson", email: "alice.johnson@example.com" },

@@ -1,0 +1,19 @@
+acme_billing:
+  customer: acme
+  kind: billing
+  line1: 1 Acme Way
+  city: Springfield
+  state: IL
+  postal_code: "62701"
+  country: US
+  default: true
+
+acme_shipping:
+  customer: acme
+  kind: shipping
+  line1: 2 Acme Dock
+  city: Springfield
+  state: IL
+  postal_code: "62702"
+  country: US
+  default: true

@@ -46,8 +46,12 @@ class OrdersController < ApplicationController
   def destroy
     order = Order.find(params[:id])
     authorize order
-    order.destroy
-    head :no_content
+
+    if order.destroy
+      head :no_content
+    else
+      render json: { errors: order.errors.full_messages }, status: :unprocessable_entity
+    end
   end
 
   private

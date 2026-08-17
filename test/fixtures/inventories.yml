@@ -1,0 +1,11 @@
+widget_stock:
+  product: widget
+  quantity: 10
+
+gadget_stock:
+  product: gadget
+  quantity: 5
+
+discontinued_stock:
+  product: discontinued
+  quantity: 0
