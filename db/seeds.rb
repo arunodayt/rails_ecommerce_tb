@@ -8,7 +8,7 @@
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
 
-if Rails.env.development?
+if Rails.env.development? || Rails.env.dev?
   username = ENV.fetch("SEED_USERNAME", "admin")
   password = ENV.fetch("SEED_PASSWORD", "password123")
 
@@ -40,7 +40,7 @@ puts "Seeded #{Currency.count} currencies"
 
 # In development, seed a sample catalog and customer list so the API can be
 # exercised with realistic data.
-if Rails.env.development?
+if Rails.env.development? || Rails.env.dev?
   products = [
     { sku: "WIDGET-002", name: "Deluxe Widget",     description: "Premium widget with extras",    price_cents: 1899, active: true },
     { sku: "GADGET-002", name: "Pro Gadget",        description: "Professional-grade gadget",      price_cents: 4999, active: true },

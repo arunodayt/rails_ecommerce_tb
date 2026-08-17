@@ -8,6 +8,9 @@ default: &default
 development:
   <<: *default
 
+dev:
+  <<: *default
+
 test:
   <<: *default
 
