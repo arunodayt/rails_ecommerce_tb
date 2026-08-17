@@ -4,6 +4,9 @@
 /.git/
 /.gitignore
 
+# Ignore macOS system files in all directories.
+.DS_Store
+
 # Ignore bundler config.
 /.bundle
 
