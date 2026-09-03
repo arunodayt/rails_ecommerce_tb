@@ -1,0 +1,33 @@
+#!/bin/bash -e
+
+# Dev-only entrypoint (Dockerfile `dev` stage): boots the embedded PostgreSQL,
+# prepares the database, starts Delayed Job workers, then execs the server.
+# Production containers use bin/docker-entrypoint instead.
+
+# Debian installs the server binaries off PATH, under a versioned directory.
+export PATH="$(ls -d /usr/lib/postgresql/*/bin | head -n 1):$PATH"
+
+# Initialize the cluster on first boot ($PGDATA is set in the Dockerfile).
+# The container OS user becomes the superuser role, so Rails connects over
+# the socket with no password (see the `dev` entry in config/database.yml).
+if [ ! -s "$PGDATA/PG_VERSION" ]; then
+  initdb --auth=trust --username="$(id -un)"
+fi
+
+# Local socket only — no TCP. Server output goes to a log inside PGDATA.
+pg_ctl -w -l "$PGDATA/server.log" \
+  -o "-c listen_addresses='' -c unix_socket_directories='/var/run/postgresql'" \
+  start
+
+./bin/rails db:prepare
+
+# Start Delayed Job workers (daemonized; logs in log/). DJ_WORKERS=0 disables.
+# Stale pidfiles from a previous run of this container would stop the daemons
+# gem from booting the workers, so clear them first.
+DJ_WORKERS="${DJ_WORKERS:-1}"
+if [ "$DJ_WORKERS" -gt 0 ]; then
+  rm -f tmp/pids/delayed_job*.pid
+  ./bin/delayed_job start -n "$DJ_WORKERS"
+fi
+
+exec "${@}"

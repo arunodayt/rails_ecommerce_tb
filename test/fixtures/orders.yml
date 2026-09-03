@@ -1,0 +1,6 @@
+# total_cents is kept consistent with the order_items fixtures below
+# (widget 1000 * 2 = 2000).
+acme_order:
+  customer: acme
+  status: pending
+  total_cents: 2000

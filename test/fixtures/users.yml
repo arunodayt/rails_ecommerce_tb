@@ -1,0 +1,28 @@
+# All fixture users share the same password ("password123") so tests can log in
+# with a single known credential. Digest is computed once via ERB.
+<% digest = BCrypt::Password.create("password123") %>
+
+admin:
+  username: admin
+  password_digest: <%= digest %>
+  role: admin
+
+manager:
+  username: manager
+  password_digest: <%= digest %>
+  role: manager
+
+manager_two:
+  username: manager_two
+  password_digest: <%= digest %>
+  role: manager
+
+member:
+  username: member
+  password_digest: <%= digest %>
+  role: member
+
+member_two:
+  username: member_two
+  password_digest: <%= digest %>
+  role: member

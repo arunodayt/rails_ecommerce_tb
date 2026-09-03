@@ -1,0 +1,7 @@
+acme:
+  name: Acme Corp
+  email: orders@acme.test
+
+globex:
+  name: Globex
+  email: buying@globex.test

@@ -1,0 +1,30 @@
+<p>Hi <%= @customer.name %>,</p>
+
+<p>
+  Thanks for your order. We have received order
+  <strong>#<%= @order.id %></strong> and it is currently <%= @order.status %>.
+</p>
+
+<table>
+  <thead>
+    <tr><th>Item</th><th>SKU</th><th>Qty</th><th>Subtotal</th></tr>
+  </thead>
+  <tbody>
+    <% @items.each do |item| %>
+      <tr>
+        <td><%= item.product.name %></td>
+        <td><%= item.product.sku %></td>
+        <td><%= item.quantity %></td>
+        <td><%= number_to_currency(item.subtotal_cents / 100.0) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+  <tfoot>
+    <tr>
+      <td colspan="3"><strong>Order total</strong></td>
+      <td><strong><%= number_to_currency(@order.total_cents / 100.0) %></strong></td>
+    </tr>
+  </tfoot>
+</table>
+
+<p>We will email you again when the order ships.</p>

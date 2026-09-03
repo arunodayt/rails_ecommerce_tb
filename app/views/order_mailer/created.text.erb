@@ -1,0 +1,12 @@
+Hi <%= @customer.name %>,
+
+Thanks for your order. We have received order #<%= @order.id %> and it is
+currently <%= @order.status %>.
+
+<% @items.each do |item| -%>
+  <%= item.quantity %> x <%= item.product.name %> (<%= item.product.sku %>) - <%= number_to_currency(item.subtotal_cents / 100.0) %>
+<% end -%>
+
+Order total: <%= number_to_currency(@order.total_cents / 100.0) %>
+
+We will email you again when the order ships.

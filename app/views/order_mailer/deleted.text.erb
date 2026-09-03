@@ -1,0 +1,8 @@
+Hi <%= @customer_name %>,
+
+Order #<%= @order_id %> has been cancelled and removed from your account.
+Nothing further is owed on it.
+
+Order total was: <%= number_to_currency(@total_cents / 100.0) %>
+
+If you did not expect this, please reply to this email and we will look into it.

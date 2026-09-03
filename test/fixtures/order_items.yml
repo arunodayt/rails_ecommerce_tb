@@ -1,0 +1,5 @@
+acme_order_widget:
+  order: acme_order
+  product: widget
+  quantity: 2
+  unit_price_cents: 1000

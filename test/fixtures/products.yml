@@ -1,0 +1,20 @@
+widget:
+  sku: WIDGET-001
+  name: Widget
+  description: A basic widget
+  price_cents: 1000
+  active: true
+
+gadget:
+  sku: GADGET-001
+  name: Gadget
+  description: A fancy gadget
+  price_cents: 2500
+  active: true
+
+discontinued:
+  sku: SPROCKET-OLD
+  name: Old Sprocket
+  description: No longer sold
+  price_cents: 500
+  active: false

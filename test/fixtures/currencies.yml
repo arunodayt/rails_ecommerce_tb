@@ -1,0 +1,15 @@
+usd:
+  code: USD
+  name: US Dollar
+  usd_rate: 1.0
+
+# Deliberately stale vs the mock provider's 1.08 so refresh can be tested.
+eur:
+  code: EUR
+  name: Euro
+  usd_rate: 1.05
+
+inr:
+  code: INR
+  name: Indian Rupee
+  usd_rate: 0.012
